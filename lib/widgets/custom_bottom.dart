@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/consts.dart';
+import 'package:notes_app/widgets/consts.dart';
 
 class CustomBottom extends StatelessWidget {
   const CustomBottom({super.key});
