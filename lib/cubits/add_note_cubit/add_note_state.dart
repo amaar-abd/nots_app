@@ -8,5 +8,5 @@ class NoteSuccess extends NotesState {}
 
 class NoteFailure extends NotesState {
   final String errormessage;
-  NoteFailure({required this.errormessage});
+  NoteFailure(this.errormessage);
 }
