@@ -11,15 +11,17 @@ class AddNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: BlocConsumer<AddNoteCubit, NotesState>( // the cubit
+        child: BlocConsumer<AddNoteCubit, NotesState>(
+          // the cubit
           listener: (context, state) {
             if (state is NoteFailure) {
               print('error${state.errormessage}');
             }
-        
+
             if (state is NoteSuccess) {
               snackBarr(context, 'done');
               Navigator.pop(context);
