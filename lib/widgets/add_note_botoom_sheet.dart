@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/widgets/custom_bottom.dart';
-import 'package:notes_app/widgets/custom_textfield.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
+import 'package:notes_app/helper/snakbar_method.dart';
+import 'package:notes_app/widgets/add_note_form.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({super.key});
@@ -10,64 +14,26 @@ class AddNoteBottomSheet extends StatelessWidget {
     return Container(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        child: SingleChildScrollView(child: FormAddNoteBottomShet()),
-      ),
-    );
-  }
-}
+        child: SingleChildScrollView(
+          child: BlocConsumer<AddNoteCubit, NotesState>(
+            listener: (context, state) {
+              if (state is NoteFailure) {
+                print('error${state.errormessage}');
+              }
 
-class FormAddNoteBottomShet extends StatefulWidget {
- const FormAddNoteBottomShet({super.key});
-
-  @override
-  State<FormAddNoteBottomShet> createState() => _FormAddNoteBottomShetState();
-}
-
-class _FormAddNoteBottomShetState extends State<FormAddNoteBottomShet> {
-  GlobalKey<FormState> formkey = GlobalKey();
-
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
-  String? title, subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formkey,
-      autovalidateMode: autovalidateMode,
-
-      child: Column(
-        children: [
-          CustomTextFormField(
-            hintText: 'Title',
-            onSaved: (value) {
-              title = value;
-            },
-          ),
-          SizedBox(height: 30),
-          CustomTextFormField(
-            hintText: 'discreption',
-            maxLines: 5,
-            onSaved: (value) {
-              subtitle = value;
-            },
-          ),
-          SizedBox(height: 50),
-
-          CustomBottom(
-            ontap: () {
-              if (formkey.currentState!.validate()) {
-                // for turn play check manual
-                formkey.currentState!.save();
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-                setState(() {
-                  
-                });
+              if (state is NoteSuccess) {
+                snackBarr(context, 'done');
+                Navigator.pop(context);
               }
             },
+            builder: (context, state) {
+              return ModalProgressHUD(
+                inAsyncCall: state is Noteloading ? true : false,
+                child: FormAddNote(),
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }
