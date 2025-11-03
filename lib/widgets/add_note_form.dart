@@ -24,7 +24,11 @@ class _FormAddNoteState extends State<FormAddNote> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: EdgeInsets.only(
+          right: 16,
+          left: 16,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Form(
           key: formkey,
           autovalidateMode: autovalidateMode,
@@ -50,7 +54,7 @@ class _FormAddNoteState extends State<FormAddNote> {
               BlocBuilder<AddNoteCubit, NotesState>(
                 builder: (context, state) {
                   return CustomBottom(
-                    isloading: state is Noteloading ? true:false,
+                    isloading: state is Noteloading ? true : false,
                     ontap: () {
                       if (formkey.currentState!.validate()) {
                         // for turn play check manual
