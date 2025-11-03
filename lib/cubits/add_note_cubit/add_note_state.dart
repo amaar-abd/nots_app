@@ -2,7 +2,7 @@ abstract class NotesState {}
 
 class NotesInitial extends NotesState {}
 
-class Noteloading extends NotesState {}
+class AddNoteloading extends NotesState {}
 
 class NoteSuccess extends NotesState {}
 

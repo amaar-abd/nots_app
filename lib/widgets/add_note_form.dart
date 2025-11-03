@@ -54,7 +54,7 @@ class _FormAddNoteState extends State<FormAddNote> {
               BlocBuilder<AddNoteCubit, NotesState>(
                 builder: (context, state) {
                   return CustomBottom(
-                    isloading: state is Noteloading ? true : false,
+                    isloading: state is AddNoteloading ? true : false,
                     ontap: () {
                       if (formkey.currentState!.validate()) {
                         // for turn play check manual
