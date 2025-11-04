@@ -25,6 +25,7 @@ class _FormAddNoteState extends State<FormAddNote> {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(
+          top: 10,
           right: 16,
           left: 16,
           bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -55,17 +56,20 @@ class _FormAddNoteState extends State<FormAddNote> {
                 builder: (context, state) {
                   return CustomBottom(
                     isloading: state is AddNoteloading ? true : false,
+
                     ontap: () {
                       if (formkey.currentState!.validate()) {
                         // for turn play check manual
 
                         formkey.currentState!.save();
+
                         var notemodel = NoteModel(
                           title: title!,
                           subtitle: subtitle!,
                           color: Colors.blue.toARGB32(),
                           date: DateTime.now().toString(),
                         );
+
                         BlocProvider.of<AddNoteCubit>(
                           context,
                         ).addNote(notemodel);
@@ -77,6 +81,7 @@ class _FormAddNoteState extends State<FormAddNote> {
                   );
                 },
               ),
+              SizedBox(height: 10),
             ],
           ),
         ),

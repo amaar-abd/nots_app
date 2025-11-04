@@ -18,7 +18,7 @@ class NotesView extends StatelessWidget {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return const AddNoteBottomSheet();
+                return  AddNoteBottomSheet();
               },
             );
           },
