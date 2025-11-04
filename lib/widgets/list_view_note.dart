@@ -14,14 +14,16 @@ class ListViewNote extends StatelessWidget {
 
       child: BlocBuilder<NotesCubit, NotesState>(
         builder: (context, state) {
+
+          
           List<NoteModel> notes =
-              BlocProvider.of<NotesCubit>(context).notes ?? [];
+              BlocProvider.of<NotesCubit>(context).featshAllNotes() ?? [];
           return ListView.builder(
             itemCount: notes.length,
-            padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
-              return NoteItem();
+              return NoteItem(note: notes[index]);
             },
+            padding: EdgeInsets.zero,
           );
         },
       ),

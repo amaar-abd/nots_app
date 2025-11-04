@@ -60,14 +60,13 @@ class _FormAddNoteState extends State<FormAddNote> {
                     ontap: () {
                       if (formkey.currentState!.validate()) {
                         // for turn play check manual
-
                         formkey.currentState!.save();
 
                         var notemodel = NoteModel(
                           title: title!,
                           subtitle: subtitle!,
                           color: Colors.blue.toARGB32(),
-                          date: DateTime.now().toString(),
+                          date: DateTime.now().toString().substring(0, 9),
                         );
 
                         BlocProvider.of<AddNoteCubit>(
