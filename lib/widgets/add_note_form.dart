@@ -52,7 +52,7 @@ class _FormAddNoteState extends State<FormAddNote> {
               ),
               SizedBox(height: 50),
 
-              BlocBuilder<AddNoteCubit, NotesState>(
+              BlocBuilder<AddNoteCubit, AddNotesState>(
                 builder: (context, state) {
                   return CustomBottom(
                     isloading: state is AddNoteloading ? true : false,
