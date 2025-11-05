@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/custom_bottom.dart';
 import 'package:notes_app/widgets/custom_textfield.dart';
@@ -69,9 +70,8 @@ class _FormAddNoteState extends State<FormAddNote> {
                           date: DateTime.now().toString().substring(0, 9),
                         );
 
-                        BlocProvider.of<AddNoteCubit>(
-                          context,
-                        ).addNote(notemodel);
+                        BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+                        BlocProvider.of<NotesCubit>(context).featshAllNotes();
                       } else {
                         autovalidateMode = AutovalidateMode.always;
                         setState(() {});
