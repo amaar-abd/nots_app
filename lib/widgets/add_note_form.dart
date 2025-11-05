@@ -51,9 +51,9 @@ class _FormAddNoteState extends State<FormAddNote> {
                   subtitle = value;
                 },
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
               ColorListView(),
-
+              SizedBox(height: 30),
               BlocBuilder<AddNoteCubit, AddNotesState>(
                 builder: (context, state) {
                   return CustomBottom(
@@ -93,26 +93,59 @@ class _FormAddNoteState extends State<FormAddNote> {
 }
 
 class ColorCircl extends StatelessWidget {
-  const ColorCircl({super.key});
+  const ColorCircl({super.key, required this.isselect, required this.color});
+  final bool isselect;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(backgroundColor: Colors.red, radius: 38);
+    return isselect
+        ? CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 38,
+            child: CircleAvatar(backgroundColor: color, radius: 35),
+          )
+        : CircleAvatar(backgroundColor: color, radius: 38);
   }
 }
 
-class ColorListView extends StatelessWidget {
+class ColorListView extends StatefulWidget {
   const ColorListView({super.key});
 
+  @override
+  State<ColorListView> createState() => _ColorListViewState();
+}
+
+class _ColorListViewState extends State<ColorListView> {
+  int cindex = 0;
+  List<Color> colors = [
+    Color(0xFF16A085),
+    Color(0xFFEF476F),
+    Color(0xFFB48EAD),
+    Color(0xFF88C0D0),
+    Color(0xFFA3BE8C),
+  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 38 * 2,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: colors.length,
         itemBuilder: (context, index) {
-          return ColorCircl();
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6),
+            child: GestureDetector(
+              onTap: () {
+                cindex = index;
+                setState(() {});
+              },
+              child: ColorCircl(
+                isselect: cindex == index,
+                color: colors[index],
+              ),
+            ),
+          );
         },
       ),
     );
