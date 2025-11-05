@@ -52,6 +52,7 @@ class _FormAddNoteState extends State<FormAddNote> {
                 },
               ),
               SizedBox(height: 50),
+              ColorListView(),
 
               BlocBuilder<AddNoteCubit, AddNotesState>(
                 builder: (context, state) {
@@ -70,7 +71,9 @@ class _FormAddNoteState extends State<FormAddNote> {
                           date: DateTime.now().toString().substring(0, 9),
                         );
 
-                        BlocProvider.of<AddNoteCubit>(context).addNote(notemodel);
+                        BlocProvider.of<AddNoteCubit>(
+                          context,
+                        ).addNote(notemodel);
                         BlocProvider.of<NotesCubit>(context).featshAllNotes();
                       } else {
                         autovalidateMode = AutovalidateMode.always;
@@ -84,6 +87,33 @@ class _FormAddNoteState extends State<FormAddNote> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ColorCircl extends StatelessWidget {
+  const ColorCircl({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(backgroundColor: Colors.red, radius: 38);
+  }
+}
+
+class ColorListView extends StatelessWidget {
+  const ColorListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 38 * 2,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return ColorCircl();
+        },
       ),
     );
   }
